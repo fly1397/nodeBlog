@@ -1,0 +1,141 @@
+<div class="main-wrap">
+    <div class="container">
+        <div class="main" role="main">
+            <ol class='breadcrumb'>
+                <li><a href='/'>主页</a></li>
+                <% if(typeof(action) !== 'undefined' && action == 'edit'){ %>
+                <li class='active'>编辑话题</li>
+                <% }else{ %>
+                <li class='active'>发布话题</li>
+                <% } %>
+            </ol>
+            <% if(typeof(edit_error) !== 'undefined' && edit_error){ %>
+            <div class="alert alert-danger">
+                <a class="close" data-dismiss="alert" href="#">&times;</a>
+                <strong><%= edit_error %></strong>
+            </div>
+            <% } %>
+            <% if(typeof(error) !== 'undefined' && error){ %>
+            <div class="alert alert-danger">
+                <strong><%= error %></strong>
+            </div>
+            <% }else{ %>
+            <% if (typeof(action) !== 'undefined' && action === 'edit') { %>
+            <h3>重新编辑</h3>
+            <div class="post-forgive">
+                <form class="form-horizontal" role="form" action="/forgive/<%= topic_id %>/edit" method='post'>
+            <% } else { %>
+            <h3>写下相关的缘由</h3>
+            <div class="post-forgive">
+                <form class="form-horizontal" role="form" action='/forgive/create' method='post'>
+            <% } %>
+                    <div class="form-group">
+                        <div class="col-sm-2 control-label">发起类型</div>
+                        <div class="col-sm-10">
+                            <select class="form-control select select-primary" name="tab" data-toggle="select">
+                                <option value="">请选择</option>
+                                <%
+                                var tabValue = '';
+                                if (typeof(tab) !== 'undefined') {
+                                tabValue = tab;
+                                }
+                                tabs.forEach(function (pair) {
+                                var value = pair[0];
+                                var text = pair[1];
+                                %>
+                                <option value="<%=value%>" <%= tabValue === value ? 'selected': '' %>><%=text%></option>
+
+                                <%});%>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="title" class="col-sm-2 control-label">标题</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="title" name="title" placeholder="标题" value="<%= typeof(title) !== 'undefined' && title || '' %>">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="times" class="col-sm-2 control-label">开始时间</label>
+                        <div class="col-sm-10">
+                            <input type="date" class="form-control" id="times" placeholder="开始时间">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="t_content" class="col-sm-2 control-label">填写原因</label>
+                        <div class="col-sm-10">
+                            <textarea class="editor" id="t_content" name="t_content" placeholder="填写原因" rows="8" style="height: 100px;"><%= typeof(content) !== 'undefined' && content || '' %></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="slider" class="col-sm-2 control-label">期望目标</label>
+                        <div class="col-sm-10">
+                            <div id="slider" class="ui-slider">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <label class="checkbox" for="swtich_target">
+                                <input type="checkbox" checked="checked" value="" id="swtich_target" data-toggle="checkbox" class="custom-checkbox"><span class="icons"><span class="icon-unchecked"></span><span class="icon-checked"></span></span>
+                                通知TA
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group" id="target_user">
+                        <label for="Target" class="col-sm-2 control-label">TA的邮箱</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="Target" name="Target" placeholder="TA的邮箱">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button type="submit" class="btn btn-primary">提交发布</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <% } %>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" charset="utf-8" src="/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="/ueditor/ueditor.all.min.js"> </script>
+<script>
+    (function () {
+        var editer;
+        if($("#t_content").length>0){
+            editer=UE.getEditor('t_content');
+            $("#preview").click(function(){
+                editer.execCommand("preview");
+            })
+        }
+
+        // 版块选择的检查，必须选择
+        $('#create_topic_form').on('submit', function (e) {
+            var tabValue = $('#tab-value').val();
+            if (!tabValue) {
+                alert('必须选择一个版块！');
+                $('.submit_btn').button('reset');
+                $('.tab-selector').css('color', 'red');
+                return false;
+            }
+        });
+        // END 版块选择的检查，必须选择
+
+        // 选择招聘版块时，给出提示
+        $('#tab-value').on('change', function () {
+            var $this = $(this);
+            var value = $this.val();
+            var warnMsg = '';
+            if (value === 'job') {
+                warnMsg = '<strong>为避免被管理员删帖，发帖时请好好阅读<a href="http://cnodejs.org/topic/541ed2d05e28155f24676a12" target="_blank">《招聘帖规范》</a></strong>';
+            } else if (value === 'ask') {
+                warnMsg = '<strong>提问时，请遵循 <a href="http://www.beiww.com/doc/oss/smart-questions.html" target="_blank">《提问的智慧》</a>中提及的要点，以便您更接收到高质量回复。</strong>'
+            }
+            $('#topic_create_warn').html(warnMsg);
+        });
+        // END 选择招聘版块时，给出提示
+    })();
+</script>

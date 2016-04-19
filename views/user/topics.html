@@ -1,0 +1,47 @@
+<div class="main-wrap">
+  <div class="container">
+    <div class="main" role="main">
+      <div class="col-sm-9">
+        <div id='content'>
+          <div class='panel'>
+            <div class='header'>
+              <ul class='breadcrumb'>
+                <li><a href='/'>主页</a></li>
+                <li class='active'><a href="/user/<%=user.loginname%>"><%=user.loginname%>的主页</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class='panel'>
+            <div class="header"><%=user.loginname%> 创建的<%= typeof(topics) !== 'undefined'?'话题':'分享' %></div>
+            <div class="inner padding">
+              <% if(typeof(topics) !== 'undefined'){ %>
+              <% if(topics.length > 0) {%>
+              <%- partial('../topic/list',
+              {topics:topics,pages:pages,current_pages:current_page,base:'/user/'+user.loginname+'/topics'}) %>
+              <% }else{ %>
+              <div class='inner'>
+                <p>无话题</p>
+              </div>
+              <% } %>
+              <% } %>
+              <% if(typeof(shares) !== 'undefined'){ %>
+              <% if(shares.length > 0) {%>
+              <%- partial('../post/list',
+              {topics:shares,pages:pages,current_pages:current_page,base:'/user/'+user.loginname+'/topics'}) %>
+              <% }else{ %>
+              <div class='inner'>
+                <p>无话题</p>
+              </div>
+              <% } %>
+              <% } %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <%- partial('../sidebar') %>
+      </div>
+    </div>
+  </div>
+</div>
+

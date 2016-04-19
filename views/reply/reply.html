@@ -1,0 +1,31 @@
+<li class="<%- reply.ups && reply.ups.length > 0 && reply.ups.length >= topic.reply_up_threshold ? 'reply_highlight' : '' %>"
+  id="reply<%= indexInCollection+1 %>" reply_id="<%= reply._id %>" reply_to_id="<%= reply.reply_id || '' %>">
+    <a class="anchor" id="<%= reply._id %>"></a>
+    <div class="avatar"><a href="/user/<%= reply.author.loginname %>" class="user_avatar">
+      <img src="<%= reply.author.avatar_url %>"
+           title="<%= reply.author.name %>" height="50" width="50" /></a></div>
+    <div class="comment-body">
+      <div class="comment-header reply_author" data-replyer="<%= reply.author.loginname %>"><%= reply.author.name %></div>
+      <p><%- reply.content %></p>
+      <div class="comment-actions">
+        <span><a class="reply_time" href="#<%= reply._id %>"><%= indexInCollection + 1 %>楼•<%= reply.friendly_create_at
+          %></a></span>
+        <a href="javascript:;"><span class="fui-bubble"></span>回复</a>
+        <a href="javascript:;" class="up_btn"><span class="fui-heart <%= (typeof current_user !== 'undefined' && isUped(current_user, reply)) ? 'uped' : '' %>"></span><%= reply.ups && reply.ups.length ? reply.ups.length : '' %>顶</a>
+        <a href="javascript:;"><span class="fui-export"></span>转发</a>
+        <a href="javascript:;"><span class="fui-eye"></span>举报</a>
+        <% if ( typeof(current_user) !== 'undefined' && current_user.is_admin ||
+        (typeof(current_user) !== 'undefined' && current_user._id.toString() == reply.author._id.toString())
+        ) { %>
+        <a href='/reply/<%= reply._id %>/edit' class='edit_reply_btn'>
+          <i class="fa fa-pencil-square-o" title='编辑'></i>
+        </a>
+        <a href='javascript:void(0);' class='delete_reply_btn'>
+          <i class="fa fa-trash" title='删除'></i>
+        </a>
+        <% } %>
+      </div>
+    </div>
+  </li>
+
+

@@ -1,0 +1,18 @@
+<li>
+  <div class="article">
+    <a class="title" href="/<%= ['story','help','photo'].indexOf(topic.tab) < 0?'forgive':'post' %>/<%= topic._id %>"><%- partial('./_top_good', {topic: topic}) %><%= topic.title %></a>
+    <a class="avatar maleskine-author" href="/user/<%= topic.author.loginname %>"><img alt="<%= topic.author.name %>" src="<%= topic.author.avatar_url %>"></a>
+    <a class="content" href="/<%= ['story','help','photo'].indexOf(topic.tab) < 0?'forgive':'post' %>/<%= topic._id %>"><%- topic.summary %></a>
+    <div class="article-info">
+      <a class="author" href="/user/<%= topic.author.loginname %>"><%= topic.author.name %></a>
+      <% if (topic.reply) {%>
+      <a href="/forgive/<%= topic._id %><%- '#' + topic.reply._id %>">
+        <span class="fui-bubble"></span><%= topic.reply_count %>
+      </a>
+      <% } %>
+      <a class="like-icon-button" href="#" id="like-note"><span class="fui-eye"></span><%= topic.visit_count %></a>
+      支持数：<%= topic.like.length %>
+      反对数：<%= topic.dislike.length %>
+    </div>
+  </div>
+</li>

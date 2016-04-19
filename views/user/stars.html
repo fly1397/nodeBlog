@@ -1,0 +1,28 @@
+<div class="main-wrap">
+  <div class="container">
+    <div class="main" role="main">
+      <div class="col-sm-9">
+        <div id='content'>
+          <div class='panel'>
+            <div class='header'>
+              <ul class='breadcrumb'>
+                <li><a href='/'>主页</a></li>
+                <li class='active'>社区达人</li>
+              </ul>
+            </div>
+            <div class='inner'>
+              <% if(typeof(stars) !== 'undefined' && stars.length > 0){ %>
+              <%- partial('../user/user',{collection:stars,as:'user'}) %>
+              <% }else{ %>
+              <p>还没有社区达人</p>
+              <% } %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <%- partial('../sidebar') %>
+      </div>
+    </div>
+  </div>
+</div>

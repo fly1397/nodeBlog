@@ -1,0 +1,41 @@
+<div class="main-wrap">
+    <div class="button-banner" role="banner">
+        <div class="container">
+            <div class="col-sm-6"><a href="/forgive/create" class="btn btn-lg btn-primary pull-right">TA生气了，求TA原谅</a></div>
+            <div class="col-sm-6"><a href="/forgive/create" class="btn btn-lg btn-danger pull-left">我生气了，叫TA来跪着</a></div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="main" role="main">
+            <div class="col-md-9">
+                <div id="content">
+                    <div class="panel">
+                        <div class="header">
+                            <h3>美女</h3>
+                        </div>
+                        <% if (Boolean(show)) { %>
+                        <div class="inner no-padding">
+                            <a href="<%= referer %>" class="btn btn-primary">点击返回，继续看其他美女</a>
+                            <div class="">
+                                <link rel="stylesheet" href="http://css.sodao.com/space/css/show.css">
+                                <%- show %>
+                                <style>
+                                    .show-photo img{background: url("http://img.lanrentuku.com/img/allimg/1212/5-121204193R5-50.gif") no-repeat center;}
+                                </style>
+                            </div>
+                        </div>
+                        <% } else { %>
+                        <div class="inner">
+                            <p>暂时还没有个人秀！</p>
+                            <a href="<%= referer %>" class="btn btn-primary">点击返回，继续看其他美女</a>
+                        </div>
+                        <% } %>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <%- partial('sidebar') %>
+            </div>
+        </div>
+    </div>
+</div>

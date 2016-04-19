@@ -1,0 +1,32 @@
+<div class="main-wrap">
+    <div class="container">
+        <div class="main" role="main">
+            <h3>美女</h3>
+            <% if (typeof(thumb) !== 'undefined') { %>
+            <div class="inner no-padding">
+
+                <div class="baguetteBoxOne gallery">
+                    <%- partial('topic/mv_db', {collection:thumb, as:'meinv'}) %>
+
+                </div>
+
+                <div id="detail">
+                    <% if (typeof(detail) !== 'undefined') { %>
+                    <script src="<%- detail %>"></script>
+                    <script>
+                        if(desc){
+                            $("#detail").append(desc)
+                        }
+                    </script>
+                    <% } %>
+                </div>
+            </div>
+            <% } else { %>
+            <div class="inner">
+                <p>无话题</p>
+            </div>
+            <% } %>
+
+        </div>
+    </div>
+</div>

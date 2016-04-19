@@ -1,0 +1,32 @@
+<div class="main-wrap">
+    <div class="container">
+        <div class="main" role="main">
+            <h3>美女</h3>
+            <% if (typeof(douban) !== 'undefined') { %>
+            <div class="inner no-padding">
+
+                <link rel="stylesheet" href="http://d.lanrentuku.com/down/js/xiangce-1123/css/baguettebox.min.css">
+                <link rel="stylesheet" href="http://d.lanrentuku.com/down/js/xiangce-1123/css/lrtk.css">
+                <script src="http://d.lanrentuku.com/down/js/xiangce-1123/js/baguettebox.min.js"></script>
+                <div class="baguetteBoxOne gallery">
+                    <%- partial('topic/mv_db', {collection:douban, as:'meinv'}) %>
+
+                </div>
+                <script>
+                    baguetteBox.run('.baguetteBoxOne', {
+                        animation: 'fadeIn',
+                    });
+                </script>
+
+
+                <%- page %>
+            </div>
+            <% } else { %>
+            <div class="inner">
+                <p>无话题</p>
+            </div>
+            <% } %>
+
+        </div>
+    </div>
+</div>

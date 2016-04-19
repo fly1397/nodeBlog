@@ -1,0 +1,9 @@
+<% if (topic.top) { %>
+<span class='fui-triangle-up-small'>置顶</span>
+<% } %>
+<% if (topic.good) { %>
+<span class='fui-star'>精华</span>
+<% } %>
+<% if (typeof(tab) !== 'undefined' &&  tab === 'all' && topic.tabName) { %>
+<span class="topiclist-tab"><%= topic.tabName %></span>
+<% } %>

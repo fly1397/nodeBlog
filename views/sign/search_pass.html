@@ -1,0 +1,38 @@
+<div class="main-wrap">
+  <div class="container">
+    <div class="login resetpass">
+      <div class="login-screen">
+
+        <% if(typeof(error) !== 'undefined' && error){ %>
+        <div class="alert alert-danger">
+          <a class="close" data-dismiss="alert" href="#">&times;</a>
+          <strong><%= error %></strong>
+        </div>
+        <% } %>
+        <h2>找回密码</h2>
+        <div class="login-icon">
+          输入邮箱提交申请<br>
+          <span class="fui-triangle-down"></span><br>
+          进入邮箱点击重置链接<br>
+          <span class="fui-triangle-down"></span><br>
+          重新设置密码
+        </div>
+        <div class="login-form">
+          <form id='signin_form' class='form-horizontal' action='/search_pass' method='post'>
+            <div class="form-group">
+              <% if (typeof(email) !== 'undefined') { %>
+              <input class='form-control login-field' id='email' name='email' size='30' type='text' value='<%= email %>'/>
+              <% } else { %>
+              <input class='form-control login-field' id='email' name='email' size='30' type='text'/>
+              <% } %>
+              <label class="login-field-icon fui-mail" for="email"></label>
+              <p class='help-block'>请输入您注册帐户时使用的电子邮箱</p>
+            </div>
+            <input type='hidden' name='_csrf' value='<%= csrf %>'/>
+            <button class="btn btn-primary btn-lg btn-block" type="submit">提交</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

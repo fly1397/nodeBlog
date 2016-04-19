@@ -1,0 +1,46 @@
+
+<div class="main-wrap">
+    <div class="container">
+        <div class="login">
+            <div class="login-screen">
+                <% if(typeof(error) !== 'undefined' && error){ %>
+                <div class="alert alert-danger">
+                    <a class="close" data-dismiss="alert" href="#">&times;</a>
+                    <strong><%= error %></strong>
+                </div>
+                <% } %>
+                <% if(typeof(success) !== 'undefined' && success){ %>
+                <div class="alert alert-success">
+                    <a class="close" data-dismiss="alert" href="#">&times;</a>
+                    <strong><%= success %></strong>
+                </div>
+                <% } %>
+                <div class="login-icon">
+                    <img src="/img/login/icon.png" alt="Welcome to Mail App">
+                    <h4>欢迎登录<small><%= config.name %></small></h4>
+                </div>
+
+                <div class="login-form">
+                    <form id='signin_form' class='form-horizontal' action='/signin' method='post'>
+                        <div class="form-group">
+                            <% if (typeof(loginname) !== 'undefined') { %>
+                            <input type="text" class="form-control login-field" value="<%= loginname %>" placeholder="用户名" id="name" name="name">
+                            <% } else { %>
+                            <input type="text" class="form-control login-field" value="" placeholder="用户名" id="name" name="name">
+                            <% } %>
+                            <label class="login-field-icon fui-user" for="name"></label>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="password" class="form-control login-field" value="" placeholder="密码" id="pass" name="pass">
+                            <label class="login-field-icon fui-lock" for="pass"></label>
+                        </div>
+
+                        <button class="btn btn-primary btn-lg btn-block" type="submit">登录</button>
+                        <a class="login-link" href="/search_pass">忘记密码？</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
