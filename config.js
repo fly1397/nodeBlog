@@ -79,8 +79,8 @@ var config = {
         requiresAuth: true,
         domains: ["qq.com"],
         auth: {
-            user: 'huafus@qq.com',
-            pass: 'Lfly8339'
+            user: '*****@qq.com',
+            pass: '*****'
         }
     },
 
